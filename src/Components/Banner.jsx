@@ -51,6 +51,7 @@ export default function Banner() {
       </div>
 
       <BannerSlider slides={slides} stats={stats} />
+      <div className="w-full h-30 bg-blue-950"></div>
     </section>
   );
 }

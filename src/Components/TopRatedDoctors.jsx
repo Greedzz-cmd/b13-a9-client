@@ -1,61 +1,14 @@
-// Server Component — SSR
-// Fetches top 3 doctors from your API/DB on the server
-
 import Link from "next/link";
 import DoctorCard from "./DoctorCard";
 
-// Replace this with your actual DB fetch
 async function getTopDoctors() {
-  // Example: fetch from your own API route
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/doctors?sort=rating&limit=3`, {
-  //   cache: "revalidate", // ISR — revalidate every 60s
-  //   next: { revalidate: 60 },
-  // });
-  // return res.json();
-
-  // Demo data (remove when you have a real API)
-  return [
-    {
-      id: "d1",
-      name: "Dr. Ayesha Rahman",
-      specialty: "Cardiologist",
-      image: "https://randomuser.me/api/portraits/women/44.jpg",
-      experience: "10 years",
-      hospital: "Labaid Cardiac Hospital",
-      location: "Dhanmondi, Dhaka",
-      fee: 800,
-      rating: 4.9,
-      reviews: 124,
-    },
-    {
-      id: "d4",
-      name: "Dr. Tariqul Islam",
-      specialty: "Orthopedic Surgeon",
-      image: "https://randomuser.me/api/portraits/men/75.jpg",
-      experience: "12 years",
-      hospital: "Square Hospital",
-      location: "Panthapath, Dhaka",
-      fee: 1200,
-      rating: 4.8,
-      reviews: 98,
-    },
-    {
-      id: "d9",
-      name: "Dr. Parisa Begum",
-      specialty: "Endocrinologist",
-      image: "https://randomuser.me/api/portraits/women/55.jpg",
-      experience: "13 years",
-      hospital: "BIRDEM General Hospital",
-      location: "Shahbagh, Dhaka",
-      fee: 950,
-      rating: 4.8,
-      reviews: 87,
-    },
-  ];
+  const res = await fetch("http://localhost:4000/doctors");
+  return res.json();
 }
 
 export default async function TopRatedDoctors() {
   const doctors = await getTopDoctors();
+  const topDoctors = doctors.filter((doctor) => doctor.rating >= 4.8);
   const isLoggedIn = false;
 
   return (
@@ -77,7 +30,7 @@ export default async function TopRatedDoctors() {
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {doctors.map((doctor) => (
+          {topDoctors.map((doctor) => (
             <DoctorCard
               key={doctor.id}
               doctor={doctor}
