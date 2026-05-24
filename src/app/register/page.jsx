@@ -10,14 +10,21 @@ import {
   FieldError,
   Button,
 } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 export default function RegisterForm() {
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    // replace with Better Auth:
-    // await signUp.email({ name: data.name, email: data.email, password: data.password, image: data.photoURL, callbackURL: "/login" })
-    console.log(data);
+    const formData = Object.fromEntries(
+      new FormData(e.currentTarget).entries(),
+    );
+    const { data, error } = await authClient.signUp.email({
+      name: formData.name, // required
+      email: formData.email, // required
+      password: formData.password, // required
+      image: formData.profileURL,
+      callbackURL: "/",
+    });
   }
 
   async function handleGoogle() {
@@ -126,7 +133,7 @@ export default function RegisterForm() {
             {/* Photo URL */}
             <TextField
               isRequired
-              name="photoURL"
+              name="profileURL"
               type="url"
               validate={(value) => {
                 try {
@@ -141,6 +148,7 @@ export default function RegisterForm() {
                 Photo URL
               </Label>
               <Input
+                name="profileURL"
                 placeholder="https://example.com/photo.jpg"
                 className="mt-1 w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-950 hover:border-gray-400 transition-colors"
               />

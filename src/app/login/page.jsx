@@ -9,14 +9,18 @@ import {
   FieldError,
   Button,
 } from "@heroui/react";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginForm() {
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    // replace with Better Auth:
-    // await signIn.email({ email: data.email, password: data.password, callbackURL: "/" })
-    console.log(data);
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
+
+    const { data, error } = await signIn.email({
+      email: formData.email,
+      password: formData.password,
+      callbackURL: "/",
+    });
   }
 
   async function handleGoogle() {
