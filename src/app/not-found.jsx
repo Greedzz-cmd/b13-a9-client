@@ -65,8 +65,8 @@ export default function NotFound() {
           Page not found
         </h1>
         <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-          The page you're looking for doesn't exist or has been moved. Let's get
-          you back on track.
+          The page you&apos;re looking for does&apos;t exist or has been moved.
+          Let&apos;s get you back on track.
         </p>
 
         {/* CTAs */}
