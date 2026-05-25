@@ -1,15 +1,10 @@
 import Link from "next/link";
 import DoctorCard from "./DoctorCard";
-
-async function getTopDoctors() {
-  const res = await fetch("http://localhost:4000/doctors");
-  return res.json();
-}
+import { getDoctors } from "@/lib/doctors";
 
 export default async function TopRatedDoctors() {
-  const doctors = await getTopDoctors();
+  const doctors = await getDoctors();
   const topDoctors = doctors.filter((doctor) => doctor.rating >= 4.8);
-  const isLoggedIn = false;
 
   return (
     <section className="py-20 px-4 bg-white">
@@ -31,18 +26,14 @@ export default async function TopRatedDoctors() {
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {topDoctors.map((doctor) => (
-            <DoctorCard
-              key={doctor.id}
-              doctor={doctor}
-              isLoggedIn={isLoggedIn}
-            />
+            <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
         </div>
 
         {/* View all CTA */}
         <div className="text-center mt-12">
           <Link
-            href="/appointments"
+            href="/all-appointments"
             className="inline-flex items-center gap-2 border-2 border-blue-950 text-blue-950 font-semibold px-8 py-3 rounded-full hover:bg-blue-950 hover:text-white transition-all duration-200"
           >
             View All Doctors

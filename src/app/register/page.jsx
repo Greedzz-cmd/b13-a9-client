@@ -12,21 +12,19 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
-export default function RegisterForm() {
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const formData = Object.fromEntries(
-      new FormData(e.currentTarget).entries(),
-    );
-    const { data, error } = await authClient.signUp.email({
-      name: formData.name, // required
-      email: formData.email, // required
-      password: formData.password, // required
-      image: formData.profileURL,
-      callbackURL: "/",
-    });
-  }
+async function handleSubmit(e) {
+  e.preventDefault();
+  const formData = Object.fromEntries(new FormData(e.currentTarget).entries());
+  const { data, error } = await authClient.signUp.email({
+    name: formData.name, // required
+    email: formData.email, // required
+    password: formData.password, // required
+    image: formData.profileURL,
+    callbackURL: "/login",
+  });
+}
 
+export default function RegisterForm() {
   async function handleGoogle() {
     // await signIn.social({ provider: "google", callbackURL: "/" })
   }

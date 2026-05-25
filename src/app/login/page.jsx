@@ -11,18 +11,18 @@ import {
 } from "@heroui/react";
 import { signIn } from "@/lib/auth-client";
 
+async function handleSubmit(e) {
+  e.preventDefault();
+  const formData = Object.fromEntries(new FormData(e.currentTarget));
+
+  const { data, error } = await signIn.email({
+    email: formData.email,
+    password: formData.password,
+    callbackURL: "/",
+  });
+}
+
 export default function LoginForm() {
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.currentTarget));
-
-    const { data, error } = await signIn.email({
-      email: formData.email,
-      password: formData.password,
-      callbackURL: "/",
-    });
-  }
-
   async function handleGoogle() {
     // await signIn.social({ provider: "google", callbackURL: "/" })
   }
