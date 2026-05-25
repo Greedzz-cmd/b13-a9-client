@@ -59,8 +59,16 @@ export default async function DoctorDetailsPage({ params }) {
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <DetailTile label="Hospital" value={doctor.hospital} tone="blue" />
-              <DetailTile label="Location" value={doctor.location} tone="slate" />
+              <DetailTile
+                label="Hospital"
+                value={doctor.hospital}
+                tone="blue"
+              />
+              <DetailTile
+                label="Location"
+                value={doctor.location}
+                tone="slate"
+              />
               <DetailTile
                 label="Experience"
                 value={doctor.experience}
@@ -133,14 +141,19 @@ export default async function DoctorDetailsPage({ params }) {
                 </p>
               </div>
             </div>
-
-            <Button
-              as={Link}
-              href="/all-appointments"
-              className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950"
-            >
-              Browse More Doctors
-            </Button>
+            <Link href={`/doctors/${doctor.id}/book`}>
+              <Button className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950">
+                Book Appointment
+              </Button>
+            </Link>
+            <Link href="/all-appointments">
+              <Button
+                variant="bordered"
+                className="mt-3 w-full rounded-full border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white"
+              >
+                Browse More Doctors
+              </Button>
+            </Link>
           </aside>
         </div>
       </div>
