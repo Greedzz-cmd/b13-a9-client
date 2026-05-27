@@ -1,8 +1,8 @@
-const DOCTORS_API_URL = "http://localhost:4000/doctors";
+const DOCTORS_API_URL = `${process.env.BACKEND_SERVER}/doctors`;
 
 export async function getDoctors() {
   const response = await fetch(DOCTORS_API_URL, {
-    cache: "no-store",
+    next: { revalidate: 300 },
   });
 
   if (!response.ok) {

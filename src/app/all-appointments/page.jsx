@@ -1,8 +1,22 @@
 import DoctorCard from "@/Components/DoctorCard";
-import { getDoctors } from "@/lib/doctors";
+import { getDoctors } from "@/lib/fetchFunctions";
 
-export default async function AllAppointmentsPage() {
+export const metadata = {
+  title: "All Appointments | docAppoint",
+  description:
+    "Search doctor profiles, compare availability, and open appointment details on docAppoint.",
+};
+
+export default async function AllAppointmentsPage({ searchParams }) {
+  const params = await searchParams;
   const doctors = await getDoctors();
+  const searchTerm =
+    typeof params?.search === "string" ? params.search.trim() : "";
+  const filteredDoctors = searchTerm
+    ? doctors.filter((doctor) =>
+        doctor.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+    : doctors;
   const specialtyCount = new Set(doctors.map((doctor) => doctor.specialty))
     .size;
 
@@ -45,13 +59,50 @@ export default async function AllAppointmentsPage() {
               </div>
             </div>
           </div>
+
+          <form className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <input
+              type="search"
+              name="search"
+              defaultValue={searchTerm}
+              placeholder="Search by doctor name"
+              className="h-14 flex-1 rounded-full border border-slate-200 bg-white px-5 text-sm text-slate-800 outline-none transition focus:border-blue-950"
+            />
+            <button
+              type="submit"
+              className="inline-flex h-14 items-center justify-center rounded-full bg-blue-950 px-8 text-sm font-semibold text-white transition hover:bg-blue-900"
+            >
+              Search
+            </button>
+          </form>
+
+          {searchTerm ? (
+            <p className="mt-4 text-sm font-medium text-slate-600">
+              Showing {filteredDoctors.length} result
+              {filteredDoctors.length === 1 ? "" : "s"} for &quot;
+              {searchTerm}
+              &quot;.
+            </p>
+          ) : null}
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {doctors.map((doctor) => (
+          {filteredDoctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
         </div>
+
+        {!filteredDoctors.length ? (
+          <div className="mt-10 rounded-[2rem] border border-dashed border-slate-300 bg-white px-8 py-12 text-center shadow-[0_18px_60px_-36px_rgba(15,23,42,0.35)]">
+            <h2 className="text-2xl font-black tracking-tight text-slate-950">
+              No doctors matched your search
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              Try a different doctor name or clear the search to browse every
+              available specialist.
+            </p>
+          </div>
+        ) : null}
       </section>
     </main>
   );

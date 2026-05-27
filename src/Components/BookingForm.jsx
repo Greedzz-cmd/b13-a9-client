@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button, toast } from "@heroui/react";
@@ -69,6 +69,7 @@ function Field({ label, children }) {
 
 export default function BookingForm({ doctor, user }) {
   const router = useRouter();
+  const doctorDetailsHref = `/doctors/${doctor.id}`;
   const appointmentTimes = useMemo(
     () => expandAvailability(doctor.availability),
     [doctor.availability],
@@ -93,6 +94,10 @@ export default function BookingForm({ doctor, user }) {
     }));
   }
 
+  useEffect(() => {
+    router.prefetch(doctorDetailsHref);
+  }, [doctorDetailsHref, router]);
+
   async function handleSubmit(event) {
     event.preventDefault();
     setIsSubmitting(true);
@@ -116,8 +121,7 @@ export default function BookingForm({ doctor, user }) {
       }
 
       toast.success("Appointment booked successfully!");
-      router.push(`/doctors/${doctor.id}`);
-      router.refresh();
+      router.replace(doctorDetailsHref);
     } catch (error) {
       toast.danger(error.message || "Failed to book appointment");
     } finally {
@@ -239,7 +243,7 @@ export default function BookingForm({ doctor, user }) {
         </Button>
         <Button
           as={Link}
-          href={`/doctors/${doctor.id}`}
+          href={doctorDetailsHref}
           variant="bordered"
           className="rounded-full border-slate-300 px-8 text-sm font-semibold text-slate-700"
         >

@@ -1,4 +1,3 @@
-// Server Component — fully SSR
 import Link from "next/link";
 
 const steps = [
@@ -67,7 +66,7 @@ const steps = [
   },
   {
     number: "04",
-    title: "Visit & get better",
+    title: "Visit and get better",
     desc: "Attend your appointment, receive expert care, and leave a review to help other patients make informed decisions.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
@@ -90,49 +89,44 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold text-blue-950 bg-blue-100 px-4 py-1.5 rounded-full tracking-widest uppercase mb-4">
+    <section className="bg-white px-4 py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-16 text-center">
+          <span className="mb-4 inline-block rounded-full bg-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-950">
             Simple Process
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
             How <span className="text-blue-950">docAppoint</span> works
           </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
-            From finding a doctor to attending your appointment — the entire
+          <p className="mx-auto max-w-md text-sm leading-relaxed text-gray-500">
+            From finding a doctor to attending your appointment, the entire
             process takes just a few minutes.
           </p>
         </div>
 
-        {/* Steps */}
         <div className="relative">
-          {/* Connector line — desktop only */}
           <div
-            className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-blue-100 via-blue-950/30 to-blue-100 z-0"
+            className="absolute left-[12.5%] right-[12.5%] top-10 z-0 hidden h-px bg-gradient-to-r from-blue-100 via-blue-950/30 to-blue-100 lg:block"
             aria-hidden
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-            {steps.map((step, i) => (
+          <div className="relative z-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, index) => (
               <div
-                key={i}
-                className="flex flex-col items-center text-center group"
+                key={step.number}
+                className="group flex flex-col items-center text-center"
               >
-                {/* Icon circle */}
-                <div className="w-20 h-20 rounded-full bg-blue-950 flex items-center justify-center mb-5 shadow-lg shadow-blue-950/25 group-hover:scale-105 transition-transform duration-300 relative">
+                <div className="relative mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-blue-950 shadow-lg shadow-blue-950/25 transition-transform duration-300 group-hover:scale-105">
                   {step.icon}
-                  {/* Step number badge */}
-                  <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-blue-950 text-blue-950 text-[10px] font-extrabold flex items-center justify-center">
-                    {i + 1}
+                  <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-blue-950 bg-white text-[10px] font-extrabold text-blue-950">
+                    {index + 1}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-gray-900 mb-2">
+                <h3 className="mb-2 text-base font-bold text-gray-900">
                   {step.title}
                 </h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-[200px]">
+                <p className="max-w-[200px] text-sm leading-relaxed text-gray-500">
                   {step.desc}
                 </p>
               </div>
@@ -140,19 +134,18 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="mt-16 bg-blue-950 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 px-10 py-10">
+        <div className="mt-16 flex flex-col items-center justify-between gap-6 rounded-2xl bg-blue-950 px-10 py-10 md:flex-row">
           <div>
-            <h3 className="text-xl font-extrabold text-white mb-1">
+            <h3 className="mb-1 text-xl font-extrabold text-white">
               Ready to get started?
             </h3>
-            <p className="text-blue-300 text-sm">
+            <p className="text-sm text-blue-300">
               Book your first appointment in under 2 minutes.
             </p>
           </div>
           <Link
-            href="/appointments"
-            className="flex-shrink-0 inline-flex items-center gap-2 bg-white text-blue-950 font-bold px-8 py-3.5 rounded-full hover:bg-blue-50 transition-all hover:-translate-y-0.5 shadow-lg text-sm"
+            href="/all-appointments"
+            className="inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold text-blue-950 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-blue-50"
           >
             Book Appointment
             <svg

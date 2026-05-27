@@ -1,18 +1,16 @@
-// app/not-found.jsx — Next.js built-in 404 handler (Server Component)
 import Link from "next/link";
 
 export const metadata = {
-  title: "404 – Page Not Found | docAppoint",
-  description: "The page you are looking for does not exist.",
+  title: "404 - Page Not Found | docAppoint",
+  description: "The page you are looking for does not exist on docAppoint.",
 };
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-white flex items-center justify-center px-4">
-      <div className="max-w-lg w-full text-center">
-        {/* Icon */}
-        <div className="flex justify-center mb-6">
-          <div className="w-20 h-20 rounded-full bg-blue-950 flex items-center justify-center shadow-xl shadow-blue-950/30">
+    <main className="flex min-h-screen items-center justify-center bg-white px-4">
+      <div className="w-full max-w-lg text-center">
+        <div className="mb-6 flex justify-center">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-950 shadow-xl shadow-blue-950/30">
             <svg
               width="40"
               height="40"
@@ -55,25 +53,22 @@ export default function NotFound() {
           </div>
         </div>
 
-        {/* Big 404 */}
-        <p className="text-[9rem] font-extrabold leading-none tracking-tighter text-blue-50 select-none mb-2">
+        <p className="mb-2 select-none text-[9rem] font-extrabold leading-none tracking-tighter text-blue-50">
           404
         </p>
 
-        {/* Text */}
-        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight mb-3">
+        <h1 className="mb-3 text-2xl font-extrabold tracking-tight text-gray-900 md:text-3xl">
           Page not found
         </h1>
-        <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-          The page you&apos;re looking for does&apos;t exist or has been moved.
+        <p className="mx-auto mb-8 max-w-sm text-sm leading-relaxed text-gray-500">
+          The page you&apos;re looking for does not exist or has been moved.
           Let&apos;s get you back on track.
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-blue-950 text-white font-semibold px-7 py-3 rounded-full text-sm hover:bg-blue-900 transition-all hover:-translate-y-0.5 shadow-lg shadow-blue-950/20"
+            className="inline-flex items-center gap-2 rounded-full bg-blue-950 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-950/20 transition-all hover:-translate-y-0.5 hover:bg-blue-900"
           >
             <svg
               width="16"
@@ -93,8 +88,8 @@ export default function NotFound() {
             Back to Home
           </Link>
           <Link
-            href="/appointments"
-            className="inline-flex items-center gap-2 border-2 border-blue-950 text-blue-950 font-semibold px-7 py-3 rounded-full text-sm hover:bg-blue-950 hover:text-white transition-all duration-200"
+            href="/all-appointments"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-blue-950 px-7 py-3 text-sm font-semibold text-blue-950 transition-all duration-200 hover:bg-blue-950 hover:text-white"
           >
             Browse Doctors
           </Link>

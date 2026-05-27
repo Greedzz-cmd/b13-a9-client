@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button, Chip } from "@heroui/react";
-import { getDoctorById } from "@/lib/doctors";
+import { getDoctorById } from "@/lib/fetchFunctions";
 
 function DetailTile({ label, value, tone = "slate" }) {
   const styles = {
-    slate: "bg-slate-50 border-slate-200",
-    blue: "bg-blue-50 border-blue-100",
-    emerald: "bg-emerald-50 border-emerald-100",
+    slate: "border-slate-200 bg-slate-50",
+    blue: "border-blue-100 bg-blue-50",
+    emerald: "border-emerald-100 bg-emerald-50",
   };
 
   return (
@@ -19,6 +19,23 @@ function DetailTile({ label, value, tone = "slate" }) {
       <p className="mt-2 text-sm font-semibold text-slate-800">{value}</p>
     </div>
   );
+}
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const doctor = await getDoctorById(id);
+
+  if (!doctor) {
+    return {
+      title: "Doctor Not Found | docAppoint",
+      description: "The requested doctor could not be found on docAppoint.",
+    };
+  }
+
+  return {
+    title: `${doctor.name} | docAppoint`,
+    description: `${doctor.name} is a ${doctor.specialty} at ${doctor.hospital}. Review availability, consultation fee, and book an appointment on docAppoint.`,
+  };
 }
 
 export default async function DoctorDetailsPage({ params }) {
@@ -36,7 +53,7 @@ export default async function DoctorDetailsPage({ params }) {
           href="/all-appointments"
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-950 transition hover:text-blue-700"
         >
-          <span aria-hidden>←</span>
+          <span aria-hidden>{"<"}</span>
           Back to all appointments
         </Link>
 

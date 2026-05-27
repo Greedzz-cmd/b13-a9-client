@@ -4,7 +4,24 @@ import { redirect, notFound } from "next/navigation";
 import { Chip } from "@heroui/react";
 import BookingForm from "@/Components/BookingForm";
 import { auth } from "@/lib/auth";
-import { getDoctorById } from "@/lib/doctors";
+import { getDoctorById } from "@/lib/fetchFunctions";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const doctor = await getDoctorById(id);
+
+  if (!doctor) {
+    return {
+      title: "Book Appointment | docAppoint",
+      description: "Book a doctor appointment on docAppoint.",
+    };
+  }
+
+  return {
+    title: `Book ${doctor.name} | docAppoint`,
+    description: `Schedule an appointment with ${doctor.name} and save the booking securely on docAppoint.`,
+  };
+}
 
 export default async function BookAppointmentPage({ params }) {
   const { id } = await params;
@@ -19,7 +36,7 @@ export default async function BookAppointmentPage({ params }) {
   });
 
   if (!session?.user) {
-    redirect("/login");
+    redirect(`/login?redirect=${encodeURIComponent(`/doctors/${doctor.id}/book`)}`);
   }
 
   return (

@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { getDoctorById } from "@/lib/doctors";
+import { getDoctorById } from "@/lib/fetchFunctions";
 import { db } from "@/lib/mongodb";
 
 export async function POST(request) {

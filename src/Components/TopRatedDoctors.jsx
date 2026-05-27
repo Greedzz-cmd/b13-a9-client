@@ -1,40 +1,42 @@
 import Link from "next/link";
 import DoctorCard from "./DoctorCard";
-import { getDoctors } from "@/lib/doctors";
+import { getDoctors } from "@/lib/fetchFunctions";
 
 export default async function TopRatedDoctors() {
   const doctors = await getDoctors();
-  const topDoctors = doctors.filter((doctor) => doctor.rating >= 4.8);
+  const topDoctors = doctors
+    .filter((doctor) => doctor.rating >= 4.8)
+    .sort(
+      (firstDoctor, secondDoctor) => secondDoctor.rating - firstDoctor.rating,
+    )
+    .slice(0, 3);
 
   return (
-    <section className="py-20 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
-        {/* Section header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-xs font-semibold text-blue-950 bg-blue-100 px-4 py-1.5 rounded-full tracking-widest uppercase mb-4">
+    <section className="bg-white px-4 py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-14 text-center">
+          <span className="mb-4 inline-block rounded-full bg-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-950">
             Our Experts
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
             Top Rated <span className="text-blue-950">Doctors</span>
           </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
-            Trusted by thousands of patients across Dhaka — meet our
-            highest-rated specialists.
+          <p className="mx-auto max-w-md text-sm leading-relaxed text-gray-500">
+            Trusted by thousands of patients across Dhaka and curated down to
+            the three highest-rated specialists.
           </p>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {topDoctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
         </div>
 
-        {/* View all CTA */}
-        <div className="text-center mt-12">
+        <div className="mt-12 text-center">
           <Link
             href="/all-appointments"
-            className="inline-flex items-center gap-2 border-2 border-blue-950 text-blue-950 font-semibold px-8 py-3 rounded-full hover:bg-blue-950 hover:text-white transition-all duration-200"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-blue-950 px-8 py-3 font-semibold text-blue-950 transition-all duration-200 hover:bg-blue-950 hover:text-white"
           >
             View All Doctors
             <svg

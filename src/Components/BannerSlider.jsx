@@ -67,7 +67,7 @@ export default function BannerSlider({ slides, stats }) {
                 expert-led care.
               </p>
 
-              <Link href="/appointments">
+              <Link href="/all-appointments">
                 <Button className=" bg-blue-950 text-white hover:bg-blue-900 transition-all hover:-translate-y-0.5">
                   Book Appointment
                   <svg
