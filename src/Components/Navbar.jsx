@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 import { authClient, useSession } from "@/lib/auth-client";
 import DocAppointLogo from "./Logo";
@@ -39,6 +38,15 @@ function Avatar({ user }) {
 }
 
 export default function Navbar() {
+  const pathName = usePathname();
+
+  const navLinkClass = (href) =>
+    `inline-block relative transition-all hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:transition-all after:duration-300 ${
+      pathName === href
+        ? "text-blue-950 after:w-full after:bg-blue-950"
+        : "hover:text-blue-950 after:w-0 after:bg-blue-950 hover:after:w-full"
+    }`;
+
   const router = useRouter();
   const { data } = useSession();
 
@@ -60,15 +68,26 @@ export default function Navbar() {
 
       <nav>
         <ul className="flex flex-wrap gap-6 text-sm font-semibold text-slate-700 lg:gap-12">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/all-appointments">All Appointments</Link>
-          </li>
-          <li>
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
+          <ul className="flex flex-wrap gap-6 text-sm font-semibold text-slate-700 lg:gap-12">
+            <li>
+              <Link href="/" className={navLinkClass("/")}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/all-appointments"
+                className={navLinkClass("/all-appointments")}
+              >
+                All Appointments
+              </Link>
+            </li>
+            <li>
+              <Link href="/dashboard" className={navLinkClass("/dashboard")}>
+                Dashboard
+              </Link>
+            </li>
+          </ul>
         </ul>
       </nav>
 

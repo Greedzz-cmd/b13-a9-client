@@ -35,13 +35,13 @@ const socialLinks = [
     ),
   },
   {
-    label: "YouTube",
-    href: "https://www.youtube.com/",
+    label: "X",
+    href: "https://x.com/",
     icon: (
-      <>
-        <rect x="2" y="4.2" width="16" height="11.6" rx="3" fill="currentColor" />
-        <path d="M8 7.5l5 2.5-5 2.5v-5z" fill="#111827" />
-      </>
+      <path
+        d="M0.05 0L7.72 10.48L0 20H1.74L8.49 11.52L13.93 20H20L11.91 8.96L19.09 0H17.35L11.13 7.91L6.08 0H0.05ZM2.56 1.38H5.34L17.45 18.62H14.67L2.56 1.38Z"
+        fill="currentColor"
+      />
     ),
   },
 ];
