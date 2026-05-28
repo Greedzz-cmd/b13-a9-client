@@ -104,7 +104,7 @@ export default function BookingForm({ doctor, user }) {
 
     try {
       const response = await fetch(
-        `${process.env.BACKEND_SERVER}/appointments`,
+        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/appointments`,
         {
           method: "POST",
           headers: {
@@ -131,6 +131,8 @@ export default function BookingForm({ doctor, user }) {
       setIsSubmitting(false);
     }
   }
+
+  console.log(process.env.NEXT_PUBLIC_BACKEND_SERVER);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

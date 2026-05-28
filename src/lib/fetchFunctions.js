@@ -1,4 +1,4 @@
-const DOCTORS_API_URL = `${process.env.BACKEND_SERVER}/doctors`;
+const DOCTORS_API_URL = `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors`;
 
 export async function getDoctors() {
   const response = await fetch(DOCTORS_API_URL, {
