@@ -103,16 +103,19 @@ export default function BookingForm({ doctor, user }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/appointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.BACKEND_SERVER}/appointments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            doctorId: doctor.id,
+            ...form,
+          }),
         },
-        body: JSON.stringify({
-          doctorId: doctor.id,
-          ...form,
-        }),
-      });
+      );
 
       const payload = await response.json();
 
