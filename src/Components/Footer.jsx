@@ -5,7 +5,6 @@ const links = [
   { label: "Home", href: "/" },
   { label: "All Appointments", href: "/all-appointments" },
   { label: "Dashboard", href: "/dashboard" },
-  { label: "My Bookings", href: "/dashboard/bookings" },
   { label: "Register", href: "/register" },
 ];
 
