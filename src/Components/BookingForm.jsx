@@ -237,7 +237,7 @@ export default function BookingForm({ doctor, user }) {
         <Button
           type="submit"
           isLoading={isSubmitting}
-          className="rounded-full bg-blue-950 px-8 text-sm font-semibold text-white hover:bg-blue-900"
+          className="rounded-full bg-blue-950 px-8 text-sm font-semibold text-white hover:bg-blue-900 transition-all hover:-translate-y-0.5"
         >
           Save Appointment
         </Button>
@@ -245,7 +245,7 @@ export default function BookingForm({ doctor, user }) {
           as={Link}
           href={doctorDetailsHref}
           variant="bordered"
-          className="rounded-full border-slate-300 px-8 text-sm font-semibold text-slate-700"
+          className="rounded-full border-slate-300 px-8 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5"
         >
           Back to Details
         </Button>

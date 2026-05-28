@@ -159,14 +159,14 @@ export default async function DoctorDetailsPage({ params }) {
               </div>
             </div>
             <Link href={`/doctors/${doctor.id}/book`}>
-              <Button className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950">
+              <Button className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition-all hover:-translate-y-0.5 ">
                 Book Appointment
               </Button>
             </Link>
             <Link href="/all-appointments">
               <Button
                 variant="bordered"
-                className="mt-3 w-full rounded-full border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white"
+                className="mt-3 w-full rounded-full border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
               >
                 Browse More Doctors
               </Button>
