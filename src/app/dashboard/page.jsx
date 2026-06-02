@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 import DashboardAppointments from "@/Components/DashboardAppointments";
 import DashboardProfile from "@/Components/DashboardProfile";
 import { auth } from "@/lib/auth";

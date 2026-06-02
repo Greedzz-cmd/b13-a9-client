@@ -39,6 +39,8 @@ export async function generateMetadata({ params }) {
 
   const doctor = await res.json();
 
+  console.log(doctor);
+
   if (!doctor) {
     return {
       title: "Doctor Not Found | docAppoint",
@@ -66,6 +68,8 @@ export default async function DoctorDetailsPage({ params }) {
     },
   );
   const doctor = await res.json();
+
+  console.log(doctor);
 
   if (!doctor) {
     notFound();
