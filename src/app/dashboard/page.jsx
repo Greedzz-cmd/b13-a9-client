@@ -17,12 +17,7 @@ export default async function DashboardPage() {
     headers: await headers(),
   });
 
-  if (!session?.user?.email) {
-    redirect("/login?redirect=/dashboard");
-  }
-
   const appointments = await getAppointmentsByUserEmail(session.user.email);
-  console.log(appointments);
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-12">
@@ -57,8 +52,8 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mt-10 grid gap-8 xl:grid-cols-[1.15fr_0.85fr]">
-          <DashboardAppointments initialAppointments={appointments} />
           <DashboardProfile initialUser={session.user} />
+          <DashboardAppointments initialAppointments={appointments} />
         </div>
       </section>
     </main>

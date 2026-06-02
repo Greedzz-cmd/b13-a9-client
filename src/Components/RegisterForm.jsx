@@ -38,7 +38,7 @@ export default function RegisterForm() {
         }
 
         toast.success("Registration successful! Please log in.");
-        router.replace("/login");
+        router.replace("/");
       } catch (error) {
         toast.danger(error.message || "Registration failed");
       }
@@ -133,7 +133,7 @@ export default function RegisterForm() {
                 Full Name
               </Label>
               <Input
-                placeholder="Rahim Uddin"
+                placeholder="Enter your name"
                 className="mt-1 w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 outline-none transition-colors hover:border-gray-400 focus:border-blue-950"
               />
               <FieldError className="mt-1 text-xs text-red-500" />
@@ -154,7 +154,7 @@ export default function RegisterForm() {
                 Email Address
               </Label>
               <Input
-                placeholder="you@example.com"
+                placeholder="Enter your email"
                 className="mt-1 w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 outline-none transition-colors hover:border-gray-400 focus:border-blue-950"
               />
               <FieldError className="mt-1 text-xs text-red-500" />

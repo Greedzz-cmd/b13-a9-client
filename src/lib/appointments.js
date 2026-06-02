@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { db } from "@/lib/mongodb";
+import { db } from "@/lib/auth";
 
 export function serializeAppointment(appointment) {
   return {

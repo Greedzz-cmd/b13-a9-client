@@ -58,9 +58,8 @@ export default function DashboardAppointments({ initialAppointments }) {
 
   const upcomingCount = useMemo(
     () =>
-      appointments.filter(
-        (appointment) => appointment.appointmentDate >= today,
-      ).length,
+      appointments.filter((appointment) => appointment.appointmentDate >= today)
+        .length,
     [appointments, today],
   );
 
@@ -156,7 +155,7 @@ export default function DashboardAppointments({ initialAppointments }) {
 
   return (
     <>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="space-y-4">
         <div className="rounded-3xl border border-blue-100 bg-blue-50 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
             Total Bookings
@@ -237,7 +236,7 @@ export default function DashboardAppointments({ initialAppointments }) {
                   </div>
                 </Card.Header>
 
-                <Card.Content className="grid gap-4 px-6 py-6 md:grid-cols-2 xl:grid-cols-4">
+                <Card.Content className="grid gap-4 px-6 py-6">
                   <Detail label="User Email" value={appointment.userEmail} />
                   <Detail
                     label="Phone"
@@ -324,7 +323,10 @@ export default function DashboardAppointments({ initialAppointments }) {
               </button>
             </div>
 
-            <form onSubmit={handleUpdate} className="px-6 py-6">
+            <form
+              onSubmit={handleUpdate}
+              className="px-6 py-6 max-h-[70vh] overflow-y-auto"
+            >
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="block">
                   <span className="mb-2 block text-sm font-medium text-slate-700">
@@ -369,7 +371,9 @@ export default function DashboardAppointments({ initialAppointments }) {
                   <input
                     required
                     value={draft.phone}
-                    onChange={(event) => updateDraft("phone", event.target.value)}
+                    onChange={(event) =>
+                      updateDraft("phone", event.target.value)
+                    }
                     className="h-14 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-blue-950"
                   />
                 </label>

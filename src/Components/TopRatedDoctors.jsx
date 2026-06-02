@@ -1,9 +1,9 @@
 import Link from "next/link";
 import DoctorCard from "./DoctorCard";
-import { getDoctors } from "@/lib/fetchFunctions";
 
 export default async function TopRatedDoctors() {
-  const doctors = await getDoctors();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors`);
+  const doctors = await res.json();
   const topDoctors = doctors
     .filter((doctor) => doctor.rating >= 4.8)
     .sort(

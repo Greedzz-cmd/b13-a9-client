@@ -2,8 +2,7 @@
 
 import { headers } from "next/headers";
 import { ObjectId } from "mongodb";
-import { auth } from "@/lib/auth";
-import { db } from "@/lib/mongodb";
+import { auth, db } from "@/lib/auth";
 import {
   getAppointmentDocumentByIdForUser,
   serializeAppointment,

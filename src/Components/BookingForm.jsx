@@ -69,7 +69,7 @@ function Field({ label, children }) {
 
 export default function BookingForm({ doctor, user }) {
   const router = useRouter();
-  const doctorDetailsHref = `/doctors/${doctor.id}`;
+  const doctorDetailsHref = `/doctors/${doctor._id}`;
   const appointmentTimes = useMemo(
     () => expandAvailability(doctor.availability),
     [doctor.availability],
@@ -111,7 +111,7 @@ export default function BookingForm({ doctor, user }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            doctorId: doctor.id,
+            doctorId: doctor._id,
             ...form,
           }),
         },
@@ -131,8 +131,6 @@ export default function BookingForm({ doctor, user }) {
       setIsSubmitting(false);
     }
   }
-
-  console.log(process.env.NEXT_PUBLIC_BACKEND_SERVER);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

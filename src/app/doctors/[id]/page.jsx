@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button, Chip } from "@heroui/react";
-import { getDoctorById } from "@/lib/fetchFunctions";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 function DetailTile({ label, value, tone = "slate" }) {
   const styles = {
@@ -23,7 +24,20 @@ function DetailTile({ label, value, tone = "slate" }) {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const doctor = await getDoctorById(id);
+
+  const token = await auth.api.getToken({ headers: await headers() });
+  console.log(token);
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token.token}`,
+      },
+    },
+  );
+
+  const doctor = await res.json();
 
   if (!doctor) {
     return {
@@ -40,7 +54,18 @@ export async function generateMetadata({ params }) {
 
 export default async function DoctorDetailsPage({ params }) {
   const { id } = await params;
-  const doctor = await getDoctorById(id);
+
+  const token = await auth.api.getToken({ headers: await headers() });
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token.token}`,
+      },
+    },
+  );
+  const doctor = await res.json();
 
   if (!doctor) {
     notFound();
@@ -158,7 +183,7 @@ export default async function DoctorDetailsPage({ params }) {
                 </p>
               </div>
             </div>
-            <Link href={`/doctors/${doctor.id}/book`}>
+            <Link href={`/doctors/${doctor._id}/book`}>
               <Button className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition-all hover:-translate-y-0.5 ">
                 Book Appointment
               </Button>

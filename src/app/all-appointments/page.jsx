@@ -1,5 +1,4 @@
 import DoctorCard from "@/Components/DoctorCard";
-import { getDoctors } from "@/lib/fetchFunctions";
 
 export const metadata = {
   title: "All Appointments | docAppoint",
@@ -9,7 +8,10 @@ export const metadata = {
 
 export default async function AllAppointmentsPage({ searchParams }) {
   const params = await searchParams;
-  const doctors = await getDoctors();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors`);
+  const doctors = await res.json();
+  console.log(process.env.NEXT_PUBLIC_BACKEND_SERVER);
+
   const searchTerm =
     typeof params?.search === "string" ? params.search.trim() : "";
   const filteredDoctors = searchTerm

@@ -4,11 +4,20 @@ import { redirect, notFound } from "next/navigation";
 import { Chip } from "@heroui/react";
 import BookingForm from "@/Components/BookingForm";
 import { auth } from "@/lib/auth";
-import { getDoctorById } from "@/lib/fetchFunctions";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const doctor = await getDoctorById(id);
+  const token = await auth.api.getToken({ headers: await headers() });
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token.token}`,
+      },
+    },
+  );
+  const doctor = await res.json();
 
   if (!doctor) {
     return {
@@ -25,7 +34,17 @@ export async function generateMetadata({ params }) {
 
 export default async function BookAppointmentPage({ params }) {
   const { id } = await params;
-  const doctor = await getDoctorById(id);
+  const token = await auth.api.getToken({ headers: await headers() });
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token.token}`,
+      },
+    },
+  );
+  const doctor = await res.json();
 
   if (!doctor) {
     notFound();
@@ -36,7 +55,9 @@ export default async function BookAppointmentPage({ params }) {
   });
 
   if (!session?.user) {
-    redirect(`/login?redirect=${encodeURIComponent(`/doctors/${doctor.id}/book`)}`);
+    redirect(
+      `/login?redirect=${encodeURIComponent(`/doctors/${doctor._id}/book`)}`,
+    );
   }
 
   return (

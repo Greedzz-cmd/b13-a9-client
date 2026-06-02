@@ -146,7 +146,7 @@ export default function LoginForm({ redirectTo = "/" }) {
                 Email Address
               </Label>
               <Input
-                placeholder="you@example.com"
+                placeholder="Enter your email"
                 className="mt-1 w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 outline-none transition-colors hover:border-gray-400 focus:border-blue-950"
               />
               <FieldError className="mt-1 text-xs text-red-500" />
