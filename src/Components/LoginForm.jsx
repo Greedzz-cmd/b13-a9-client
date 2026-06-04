@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import {
   Form,
   TextField,
@@ -14,9 +14,15 @@ import {
 } from "@heroui/react";
 import { signIn } from "@/lib/auth-client";
 
-export default function LoginForm({ redirectTo = "/" }) {
+export default function LoginForm({ redirectTo = "/", authRequired = false }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    if (authRequired) {
+      toast.danger("Please log in first to access that page.");
+    }
+  }, [authRequired]);
 
   function handleSubmit(event) {
     event.preventDefault();

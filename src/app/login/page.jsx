@@ -12,6 +12,7 @@ export default async function LoginPage({ searchParams }) {
     typeof params?.redirect === "string" && params.redirect.startsWith("/")
       ? params.redirect
       : "/";
+  const authRequired = params?.auth === "required";
 
-  return <LoginForm redirectTo={redirectTo} />;
+  return <LoginForm redirectTo={redirectTo} authRequired={authRequired} />;
 }
