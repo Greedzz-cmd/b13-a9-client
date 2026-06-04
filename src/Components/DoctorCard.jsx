@@ -29,9 +29,10 @@ function StarRating({ rating }) {
 
 export default function DoctorCard({ doctor }) {
   const { data, isPending } = useSession();
+  const doctorDetailsPath = `/doctors/${doctor._id}`;
   const href = data?.user
-    ? `/doctors/${doctor._id}`
-    : `/login?redirect=${encodeURIComponent(`/doctors/${doctor._id}`)}`;
+    ? doctorDetailsPath
+    : `/login?redirect=${encodeURIComponent(doctorDetailsPath)}&auth=required`;
   const nextSlot = doctor.availability?.[0];
 
   return (
