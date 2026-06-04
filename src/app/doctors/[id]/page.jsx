@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button, Chip } from "@heroui/react";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getDoctorById } from "@/lib/doctors";
 
 function DetailTile({ label, value, tone = "slate" }) {
   const styles = {
@@ -24,22 +23,7 @@ function DetailTile({ label, value, tone = "slate" }) {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-
-  const token = await auth.api.getToken({ headers: await headers() });
-  console.log(token);
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
-    {
-      headers: {
-        authorization: `Bearer ${token.token}`,
-      },
-    },
-  );
-
-  const doctor = await res.json();
-
-  console.log(doctor);
+  const doctor = await getDoctorById(id);
 
   if (!doctor) {
     return {
@@ -56,24 +40,16 @@ export async function generateMetadata({ params }) {
 
 export default async function DoctorDetailsPage({ params }) {
   const { id } = await params;
-
-  const token = await auth.api.getToken({ headers: await headers() });
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
-    {
-      headers: {
-        authorization: `Bearer ${token.token}`,
-      },
-    },
-  );
-  const doctor = await res.json();
-
-  console.log(doctor);
+  const doctor = await getDoctorById(id);
 
   if (!doctor) {
     notFound();
   }
+
+  const doctorId = doctor._id ?? id;
+  const availability = Array.isArray(doctor.availability)
+    ? doctor.availability
+    : [];
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_30%,#ffffff_100%)] px-4 py-12">
@@ -132,7 +108,7 @@ export default async function DoctorDetailsPage({ params }) {
                 Available Slots
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
-                {doctor.availability.map((slot) => (
+                {availability.map((slot) => (
                   <span
                     key={slot}
                     className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700"
@@ -187,7 +163,7 @@ export default async function DoctorDetailsPage({ params }) {
                 </p>
               </div>
             </div>
-            <Link href={`/doctors/${doctor._id}/book`}>
+            <Link href={`/doctors/${doctorId}/book`}>
               <Button className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition-all hover:-translate-y-0.5 ">
                 Book Appointment
               </Button>

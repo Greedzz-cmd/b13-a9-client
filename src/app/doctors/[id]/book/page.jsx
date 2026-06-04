@@ -4,20 +4,11 @@ import { redirect, notFound } from "next/navigation";
 import { Chip } from "@heroui/react";
 import BookingForm from "@/Components/BookingForm";
 import { auth } from "@/lib/auth";
+import { getDoctorById } from "@/lib/doctors";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const token = await auth.api.getToken({ headers: await headers() });
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
-    {
-      headers: {
-        authorization: `Bearer ${token.token}`,
-      },
-    },
-  );
-  const doctor = await res.json();
+  const doctor = await getDoctorById(id);
 
   if (!doctor) {
     return {
@@ -34,21 +25,16 @@ export async function generateMetadata({ params }) {
 
 export default async function BookAppointmentPage({ params }) {
   const { id } = await params;
-  const token = await auth.api.getToken({ headers: await headers() });
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/doctors/${id}`,
-    {
-      headers: {
-        authorization: `Bearer ${token.token}`,
-      },
-    },
-  );
-  const doctor = await res.json();
+  const doctor = await getDoctorById(id);
 
   if (!doctor) {
     notFound();
   }
+
+  const doctorId = doctor._id ?? id;
+  const availability = Array.isArray(doctor.availability)
+    ? doctor.availability
+    : [];
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -56,7 +42,7 @@ export default async function BookAppointmentPage({ params }) {
 
   if (!session?.user) {
     redirect(
-      `/login?redirect=${encodeURIComponent(`/doctors/${doctor._id}/book`)}`,
+      `/login?redirect=${encodeURIComponent(`/doctors/${doctorId}/book`)}`,
     );
   }
 
@@ -64,7 +50,7 @@ export default async function BookAppointmentPage({ params }) {
     <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_20%,#ffffff_100%)] px-4 py-12">
       <div className="mx-auto max-w-5xl">
         <Link
-          href={`/doctors/${doctor.id}`}
+          href={`/doctors/${doctorId}`}
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-950 transition hover:text-blue-700"
         >
           <span aria-hidden>{"<"}</span>
@@ -107,7 +93,7 @@ export default async function BookAppointmentPage({ params }) {
                   Available Blocks
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {doctor.availability.map((slot) => (
+                  {availability.map((slot) => (
                     <span
                       key={slot}
                       className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100"
