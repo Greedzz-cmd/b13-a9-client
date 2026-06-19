@@ -30,9 +30,7 @@ export default async function BookAppointmentPage({ params }) {
   });
 
   if (!session?.user) {
-    redirect(
-      `/login?redirect=${encodeURIComponent(`/doctors/${id}/book`)}`,
-    );
+    redirect(`/login?redirect=${encodeURIComponent(`/doctors/${id}/book`)}`);
   }
 
   const doctor = await getDoctorById(id);

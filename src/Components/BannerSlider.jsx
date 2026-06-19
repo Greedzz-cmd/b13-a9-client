@@ -109,16 +109,18 @@ export default function BannerSlider({ slides, stats }) {
                 />
               </div>
 
-              <div className="absolute left-1/2 top-[calc(100%_-_1.5rem)] -translate-x-1/2 w-[min(22rem,90%)] rounded-3xl bg-white/95 border border-slate-200 p-6 shadow-xl shadow-slate-200/50 backdrop-blur-sm lg:left-auto lg:right-10 lg:top-auto lg:bottom-10 lg:translate-x-0 lg:w-[18rem]">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">
-                  Featured Doctor
-                </p>
-                <p className="text-base font-semibold text-slate-900 mb-1">
-                  {slide.author}
-                </p>
-                <p className="text-sm text-slate-600">
-                  {slide.tag} with patient-first care and proven results.
-                </p>
+              <div className="mt-6 lg:absolute lg:left-auto lg:right-10 lg:top-auto lg:bottom-10 lg:mt-0 lg:w-[18rem]">
+                <div className="mx-auto w-[min(22rem,90%)] rounded-3xl bg-white/95 border border-slate-200 p-6 shadow-xl shadow-slate-200/50 backdrop-blur-sm lg:mx-0">
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">
+                    Featured Doctor
+                  </p>
+                  <p className="text-base font-semibold text-slate-900 mb-1">
+                    {slide.author}
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    {slide.tag} with patient-first care and proven results.
+                  </p>
+                </div>
               </div>
             </div>
 
