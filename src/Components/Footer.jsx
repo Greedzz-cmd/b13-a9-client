@@ -50,7 +50,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-950 px-4 py-16 text-slate-200">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10">
         <div className="flex flex-col gap-8 border-b border-white/10 pb-8 md:flex-row md:items-center md:justify-between">
           <Link href="/">
             <DocAppointLogo size="sm" theme="dark" />
