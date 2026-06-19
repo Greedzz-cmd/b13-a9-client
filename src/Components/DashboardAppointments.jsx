@@ -48,7 +48,7 @@ function Detail({ label, value }) {
   );
 }
 
-export default function DashboardAppointments({ initialAppointments }) {
+export default function DashboardAppointments({ initialAppointments, profile }) {
   const [appointments, setAppointments] = useState(initialAppointments);
   const [editingAppointment, setEditingAppointment] = useState(null);
   const [draft, setDraft] = useState(null);
@@ -155,36 +155,41 @@ export default function DashboardAppointments({ initialAppointments }) {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-4 md:p-5">
+      <div className="mt-8 grid grid-cols-2 gap-3 md:mt-10 md:grid-cols-3 md:gap-5">
+        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-4 md:p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
             Total Bookings
           </p>
-          <p className="mt-2 text-2xl font-black text-blue-950 md:text-3xl">
+          <p className="mt-2 text-2xl font-black text-blue-950 md:text-4xl">
             {appointments.length}
           </p>
         </div>
-        <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 md:p-5">
+        <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 md:p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
             Upcoming
           </p>
-          <p className="mt-2 text-2xl font-black text-emerald-700 md:text-3xl">
+          <p className="mt-2 text-2xl font-black text-emerald-700 md:text-4xl">
             {upcomingCount}
           </p>
         </div>
-        <div className="col-span-2 rounded-3xl border border-amber-100 bg-amber-50 p-4 md:col-span-1 md:p-5">
+        <div className="col-span-2 rounded-3xl border border-amber-100 bg-amber-50 p-4 md:col-span-1 md:p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600">
             Editable
           </p>
-          <p className="mt-2 text-sm font-semibold leading-6 text-amber-800">
+          <p className="mt-2 max-w-sm text-sm font-semibold leading-6 text-amber-800">
             Change patient, schedule, and notes without touching doctor or
             account details.
           </p>
         </div>
       </div>
 
+      <div className="mt-8 grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+        {profile ? <div className="order-2 lg:order-1">{profile}</div> : null}
+
+        <section className="order-1 min-w-0 lg:order-2">
+
       {appointments.length ? (
-        <div className="mt-8 grid gap-6">
+        <div className="grid gap-6">
           {appointments.map((appointment) => {
             const isDeleting =
               isPending && activeAction === `delete:${appointment.id}`;
@@ -196,7 +201,7 @@ export default function DashboardAppointments({ initialAppointments }) {
                 key={appointment.id}
                 className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_18px_60px_-36px_rgba(15,23,42,0.45)]"
               >
-                <Card.Header className="flex flex-col gap-4 border-b border-slate-100 px-6 py-6 lg:flex-row lg:items-start lg:justify-between">
+                <Card.Header className="flex flex-col gap-4 border-b border-slate-100 px-6 py-6 xl:flex-row xl:items-start xl:justify-between">
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
                       <Chip className="bg-blue-100 text-xs font-semibold uppercase tracking-[0.18em] text-blue-950">
@@ -216,7 +221,7 @@ export default function DashboardAppointments({ initialAppointments }) {
                     </p>
                   </div>
 
-                  <div className="flex flex-col gap-3 sm:flex-row">
+                  <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
                     <Button
                       onClick={() => openModal(appointment)}
                       isDisabled={isPending}
@@ -284,6 +289,8 @@ export default function DashboardAppointments({ initialAppointments }) {
           </Link>
         </div>
       )}
+        </section>
+      </div>
 
       {editingAppointment && draft ? (
         <div

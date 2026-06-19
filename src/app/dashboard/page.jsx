@@ -36,28 +36,24 @@ export default async function DashboardPage() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/all-appointments"
-                className="inline-flex w-full justify-center rounded-full bg-blue-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-900 sm:w-auto"
+                className="inline-flex w-full justify-center whitespace-nowrap rounded-full bg-blue-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-900 sm:w-auto"
               >
                 Book Another Doctor
               </Link>
-              <div className="inline-flex w-full justify-center rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-600 sm:w-auto">
+              <div className="inline-flex w-full justify-center whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-600 sm:w-auto">
                 Signed in as {session.user.email}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-[1.15fr_0.85fr]">
-          <div className="order-2 md:order-1">
-            <DashboardProfile initialUser={session.user} />
-          </div>
-          <div className="order-1 md:order-2">
-            <DashboardAppointments initialAppointments={appointments} />
-          </div>
-        </div>
+        <DashboardAppointments
+          initialAppointments={appointments}
+          profile={<DashboardProfile initialUser={session.user} />}
+        />
       </section>
     </main>
   );
