@@ -155,7 +155,7 @@ export default function DashboardAppointments({ initialAppointments }) {
 
   return (
     <>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
         <div className="rounded-3xl border border-blue-100 bg-blue-50 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
             Total Bookings

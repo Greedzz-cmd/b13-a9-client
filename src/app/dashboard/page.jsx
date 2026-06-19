@@ -36,14 +36,14 @@ export default async function DashboardPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/all-appointments"
-                className="inline-flex rounded-full bg-blue-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-900"
+                className="inline-flex w-full justify-center rounded-full bg-blue-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-900 sm:w-auto"
               >
                 Book Another Doctor
               </Link>
-              <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-600">
+              <div className="inline-flex w-full justify-center rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-600 sm:w-auto">
                 Signed in as {session.user.email}
               </div>
             </div>
