@@ -25,6 +25,16 @@ export async function generateMetadata({ params }) {
 
 export default async function BookAppointmentPage({ params }) {
   const { id } = await params;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    redirect(
+      `/login?redirect=${encodeURIComponent(`/doctors/${id}/book`)}`,
+    );
+  }
+
   const doctor = await getDoctorById(id);
 
   if (!doctor) {
@@ -35,16 +45,6 @@ export default async function BookAppointmentPage({ params }) {
   const availability = Array.isArray(doctor.availability)
     ? doctor.availability
     : [];
-
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session?.user) {
-    redirect(
-      `/login?redirect=${encodeURIComponent(`/doctors/${doctorId}/book`)}`,
-    );
-  }
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_20%,#ffffff_100%)] px-4 py-12 sm:px-6 lg:px-8">
