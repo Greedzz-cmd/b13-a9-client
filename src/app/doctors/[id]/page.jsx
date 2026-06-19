@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { Button, Chip } from "@heroui/react";
+import { auth } from "@/lib/auth";
 import { getDoctorById } from "@/lib/doctors";
 
 function DetailTile({ label, value, tone = "slate" }) {
@@ -50,6 +52,13 @@ export default async function DoctorDetailsPage({ params }) {
   const availability = Array.isArray(doctor.availability)
     ? doctor.availability
     : [];
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const bookHref = session?.user
+    ? `/doctors/${doctorId}/book`
+    : `/login?redirect=${encodeURIComponent(`/doctors/${doctorId}/book`)}&auth=required`;
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_30%,#ffffff_100%)] px-4 py-12 sm:px-6 lg:px-8">
@@ -169,7 +178,7 @@ export default async function DoctorDetailsPage({ params }) {
                 </p>
               </div>
             </div>
-            <Link href={`/doctors/${doctorId}/book`}>
+            <Link href={bookHref}>
               <Button className="mt-8 w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition-all hover:-translate-y-0.5 ">
                 Book Appointment
               </Button>

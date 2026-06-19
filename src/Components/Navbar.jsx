@@ -53,6 +53,7 @@ export default function Navbar() {
 
   const router = useRouter();
   const { data } = useSession();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   async function handleLogOut() {
     await authClient.signOut({
@@ -77,32 +78,70 @@ export default function Navbar() {
           </div>
         </div>
 
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 md:hidden"
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileMenuOpen}
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M3 5h14M3 10h14M3 15h14"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+
         <nav aria-label="Primary navigation" className="order-last md:order-0">
-          <ul className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
-            <li>
-              <Link href="/" className={navLinkClass("/")}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/all-appointments"
-                className={navLinkClass("/all-appointments")}
-              >
-                All Appointments
-              </Link>
-            </li>
-            <li>
-              <Link href="/dashboard" className={navLinkClass("/dashboard")}>
-                Dashboard
-              </Link>
-            </li>
-          </ul>
+          <div
+            className={`flex flex-col gap-3 md:flex-row md:items-center ${
+              mobileMenuOpen ? "block" : "hidden"
+            } md:block`}
+          >
+            <ul className="flex flex-col gap-2 text-sm font-semibold md:flex-row md:gap-3">
+              <li>
+                <Link
+                  href="/"
+                  className={navLinkClass("/")}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/all-appointments"
+                  className={navLinkClass("/all-appointments")}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Appointments
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/dashboard"
+                  className={navLinkClass("/dashboard")}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              </li>
+            </ul>
+          </div>
         </nav>
 
         <div className="flex flex-col gap-3 md:flex-row md:items-center">
           {data?.user ? (
-            <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 shadow-sm">
+            <div className="inline-flex min-w-0 items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 shadow-sm">
               <Avatar user={data.user} />
               <div className="min-w-0 text-left">
                 <p className="truncate text-sm font-semibold text-slate-900">
