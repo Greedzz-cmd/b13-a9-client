@@ -12,13 +12,15 @@ function createDraft(user) {
   };
 }
 
-function ProfileField({ label, value }) {
+function ProfileField({ label, value, className = "", valueClassName = "" }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+    <div
+      className={`rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 ${className}`}
+    >
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
         {label}
       </p>
-      <p className="mt-2 text-sm font-semibold text-slate-800">
+      <p className={`mt-2 text-sm font-semibold text-slate-800 ${valueClassName}`}>
         {value || "Not provided"}
       </p>
     </div>
@@ -95,9 +97,9 @@ export default function DashboardProfile({ initialUser }) {
 
   return (
     <>
-      <section className="rounded-[2rem] border border-white/70 bg-white/95 p-8 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur">
+      <section className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur md:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-5">
+          <div className="flex items-start gap-4 sm:items-center sm:gap-5">
             {user?.image ? (
               <Image
                 src={user.image}
@@ -105,10 +107,10 @@ export default function DashboardProfile({ initialUser }) {
                 width={88}
                 height={88}
                 unoptimized
-                className="h-[88px] w-[88px] rounded-full border-4 border-blue-100 object-cover"
+                className="h-16 w-16 rounded-full border-4 border-blue-100 object-cover sm:h-[88px] sm:w-[88px]"
               />
             ) : (
-              <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full bg-blue-950 text-xl font-black text-white">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-blue-950 text-lg font-black text-white sm:h-[88px] sm:w-[88px] sm:text-xl">
                 {initials}
               </div>
             )}
@@ -117,7 +119,7 @@ export default function DashboardProfile({ initialUser }) {
               <span className="inline-flex rounded-full bg-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-blue-950">
                 My Profile
               </span>
-              <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-950">
+              <h2 className="mt-4 text-xl font-black tracking-tight text-slate-950 sm:text-2xl">
                 Keep your patient account details current.
               </h2>
               <p className="mt-2 text-sm leading-7 text-slate-600">
@@ -135,10 +137,15 @@ export default function DashboardProfile({ initialUser }) {
           </Button>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2">
           <ProfileField label="Name" value={user?.name} />
           <ProfileField label="Email Address" value={user?.email} />
-          <ProfileField label="Photo URL" value={user?.image} />
+          <ProfileField
+            label="Photo URL"
+            value={user?.image}
+            className="hidden sm:block"
+            valueClassName="break-all"
+          />
         </div>
       </section>
 

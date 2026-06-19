@@ -155,24 +155,24 @@ export default function DashboardAppointments({ initialAppointments }) {
 
   return (
     <>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-5">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-4 md:p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
             Total Bookings
           </p>
-          <p className="mt-2 text-3xl font-black text-blue-950">
+          <p className="mt-2 text-2xl font-black text-blue-950 md:text-3xl">
             {appointments.length}
           </p>
         </div>
-        <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-5">
+        <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 md:p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
             Upcoming
           </p>
-          <p className="mt-2 text-3xl font-black text-emerald-700">
+          <p className="mt-2 text-2xl font-black text-emerald-700 md:text-3xl">
             {upcomingCount}
           </p>
         </div>
-        <div className="rounded-3xl border border-amber-100 bg-amber-50 p-5">
+        <div className="col-span-2 rounded-3xl border border-amber-100 bg-amber-50 p-4 md:col-span-1 md:p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600">
             Editable
           </p>
@@ -268,11 +268,11 @@ export default function DashboardAppointments({ initialAppointments }) {
           })}
         </div>
       ) : (
-        <div className="mt-8 rounded-[2rem] border border-dashed border-slate-300 bg-white px-8 py-12 text-center shadow-[0_18px_60px_-36px_rgba(15,23,42,0.35)]">
-          <h2 className="text-2xl font-black tracking-tight text-slate-950">
+        <div className="mt-6 rounded-[2rem] border border-dashed border-slate-300 bg-white px-5 py-10 text-center shadow-[0_18px_60px_-36px_rgba(15,23,42,0.35)] md:mt-8 md:px-8 md:py-12">
+          <h2 className="text-xl font-black tracking-tight text-slate-950 sm:text-2xl">
             No appointments booked yet
           </h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-600">
             When you book a doctor, the appointment will appear here so you can
             update or remove it later.
           </p>

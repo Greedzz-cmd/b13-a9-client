@@ -19,15 +19,15 @@ export default async function DashboardPage() {
   const appointments = await getAppointmentsByUserEmail(session.user.email);
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-10 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
       <section className="mx-auto max-w-6xl">
-        <div className="rounded-[2rem] border border-white/70 bg-white/95 px-6 py-8 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur md:px-10 md:py-12">
+        <div className="rounded-[2rem] border border-white/70 bg-white/95 px-6 py-7 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur md:px-10 md:py-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <span className="inline-flex rounded-full bg-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-blue-950">
                 Dashboard
               </span>
-              <h1 className="mt-4 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
+              <h1 className="mt-4 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl md:text-5xl">
                 Manage your booked appointments without leaving the page.
               </h1>
               <p className="mt-4 text-sm leading-7 text-slate-600 md:text-base">
@@ -50,9 +50,13 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-8 md:grid-cols-[1.15fr_0.85fr]">
-          <DashboardProfile initialUser={session.user} />
-          <DashboardAppointments initialAppointments={appointments} />
+        <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-[1.15fr_0.85fr]">
+          <div className="order-2 md:order-1">
+            <DashboardProfile initialUser={session.user} />
+          </div>
+          <div className="order-1 md:order-2">
+            <DashboardAppointments initialAppointments={appointments} />
+          </div>
         </div>
       </section>
     </main>
