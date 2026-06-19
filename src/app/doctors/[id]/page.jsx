@@ -52,8 +52,8 @@ export default async function DoctorDetailsPage({ params }) {
     : [];
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_30%,#ffffff_100%)] px-4 py-12">
-      <div className="mx-auto max-w-6xl">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_30%,#ffffff_100%)] px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         <Link
           href="/all-appointments"
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-950 transition hover:text-blue-700"
@@ -62,7 +62,7 @@ export default async function DoctorDetailsPage({ params }) {
           Back to all appointments
         </Link>
 
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr]">
           <section className="rounded-[2rem] border border-white/70 bg-white/95 p-8 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur">
             <div className="mb-6 flex flex-wrap items-center gap-3">
               <Chip className="bg-blue-100 text-xs font-semibold uppercase tracking-[0.2em] text-blue-950">
@@ -108,14 +108,20 @@ export default async function DoctorDetailsPage({ params }) {
                 Available Slots
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
-                {availability.map((slot) => (
-                  <span
-                    key={slot}
-                    className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700"
-                  >
-                    {slot}
-                  </span>
-                ))}
+                {availability.length ? (
+                  availability.map((slot) => (
+                    <span
+                      key={slot}
+                      className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700"
+                    >
+                      {slot}
+                    </span>
+                  ))
+                ) : (
+                  <p className="text-sm text-slate-500">
+                    No available slots are currently listed for this doctor.
+                  </p>
+                )}
               </div>
             </div>
           </section>

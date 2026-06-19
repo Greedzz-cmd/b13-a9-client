@@ -19,8 +19,8 @@ export default async function DashboardPage() {
   const appointments = await getAppointmentsByUserEmail(session.user.email);
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-12">
-      <section className="mx-auto max-w-6xl">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-10 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl">
         <div className="rounded-[2rem] border border-white/70 bg-white/95 px-6 py-8 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur md:px-10 md:py-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-8 xl:grid-cols-[1.15fr_0.85fr]">
+        <div className="mt-10 grid gap-8 md:grid-cols-[1.15fr_0.85fr]">
           <DashboardProfile initialUser={session.user} />
           <DashboardAppointments initialAppointments={appointments} />
         </div>

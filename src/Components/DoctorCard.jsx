@@ -36,29 +36,29 @@ export default function DoctorCard({ doctor }) {
   const nextSlot = doctor.availability?.[0];
 
   return (
-    <Card className="flex h-full flex-col overflow-hidden border border-gray-100 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <div className="relative flex justify-center bg-blue-50 pt-8 pb-0">
-        <div className="absolute top-4 left-4">
+    <Card className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="relative flex justify-center bg-blue-50 px-6 pt-8 pb-6">
+        <div className="absolute top-5 left-5">
           <Chip className="bg-blue-100 text-[11px] font-semibold text-blue-950">
             {doctor.specialty}
           </Chip>
         </div>
 
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-5 right-5">
           <Chip className="bg-blue-950 text-[11px] font-bold text-white">
-            Rating {doctor.rating}
+            {doctor.rating} ★
           </Chip>
         </div>
 
-        <Image
-          src={doctor.image}
-          alt={doctor.name}
-          width={120}
-          height={120}
-          unoptimized
-          className="rounded-full border-4 border-white object-cover shadow-md"
-          style={{ width: 120, height: 120 }}
-        />
+        <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white bg-slate-100 shadow-md">
+          <Image
+            src={doctor.image}
+            alt={doctor.name}
+            fill
+            className="object-cover"
+            unoptimized
+          />
+        </div>
       </div>
 
       <Card.Header className="flex flex-col items-center px-6 pt-4 pb-0">
@@ -165,22 +165,27 @@ export default function DoctorCard({ doctor }) {
         </ul>
       </Card.Content>
 
-      <Card.Footer className="mt-2 flex items-center justify-between border-t border-gray-100 px-6 py-4">
-        <div>
-          <p className="text-[11px] uppercase tracking-wide text-gray-400">
-            Fee
-          </p>
-          <p className="text-base font-bold text-blue-950">BDT {doctor.fee}</p>
+      <Card.Footer className="mt-4 border-t border-slate-200 px-6 py-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-[11px] uppercase tracking-wide text-slate-400">
+              Fee
+            </p>
+            <p className="text-base font-bold text-blue-950">
+              BDT {doctor.fee}
+            </p>
+          </div>
+
+          <Link href={href} className="w-full sm:w-auto">
+            <Button
+              isDisabled={isPending}
+              className="w-full rounded-full bg-blue-950 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-900"
+              size="sm"
+            >
+              View Details
+            </Button>
+          </Link>
         </div>
-        <Link href={href}>
-          <Button
-            isDisabled={isPending}
-            className="rounded-full bg-blue-950 px-5 text-sm font-semibold text-white hover:bg-blue-900"
-            size="sm"
-          >
-            View Details
-          </Button>
-        </Link>
       </Card.Footer>
     </Card>
   );

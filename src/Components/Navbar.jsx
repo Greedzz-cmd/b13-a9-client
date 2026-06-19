@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
@@ -12,14 +13,17 @@ function Avatar({ user }) {
 
   if (user?.image && !imgError) {
     return (
-      <img
-        src={user.image}
-        alt={user.name || "User profile"}
-        width={40}
-        height={40}
-        onError={() => setImgError(true)}
-        className="h-10 w-10 rounded-full border border-blue-100 object-cover"
-      />
+      <div className="relative h-10 w-10 overflow-hidden rounded-full border border-blue-100 bg-slate-100">
+        <Image
+          src={user.image}
+          alt={user.name || "User profile"}
+          fill
+          sizes="40px"
+          className="object-cover"
+          unoptimized
+          onError={() => setImgError(true)}
+        />
+      </div>
     );
   }
 
@@ -41,10 +45,10 @@ export default function Navbar() {
   const pathName = usePathname();
 
   const navLinkClass = (href) =>
-    `inline-block relative transition-all hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:transition-all after:duration-300 ${
+    `inline-flex items-center justify-center rounded-full px-3 py-2 transition-all duration-300 ${
       pathName === href
-        ? "text-blue-950 after:w-full after:bg-blue-950"
-        : "hover:text-blue-950 after:w-0 after:bg-blue-950 hover:after:w-full"
+        ? "text-blue-950 bg-blue-100 shadow-sm"
+        : "text-slate-600 hover:text-blue-950 hover:bg-slate-100"
     }`;
 
   const router = useRouter();
@@ -61,14 +65,20 @@ export default function Navbar() {
   }
 
   return (
-    <header className="mx-auto my-6 flex w-full max-w-6xl flex-col gap-5 px-4 lg:flex-row lg:items-center lg:justify-between">
-      <Link href="/">
-        <DocAppointLogo size="sm" theme="light" />
-      </Link>
+    <header className="sticky top-0 z-40 mx-auto my-4 w-full max-w-6xl rounded-[2rem] border border-slate-200/70 bg-white/90 px-5 py-4 shadow-[0_15px_45px_-20px_rgba(15,23,42,0.2)] backdrop-blur-sm backdrop-saturate-150 transition-all duration-300 sm:px-6 lg:px-8">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Link href="/">
+            <DocAppointLogo size="sm" theme="light" />
+          </Link>
+          <div className="hidden items-center gap-3 rounded-full bg-slate-50 px-4 py-2 text-sm text-slate-500 md:flex">
+            <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            Your appointment hub
+          </div>
+        </div>
 
-      <nav>
-        <ul className="flex flex-wrap gap-6 text-sm font-semibold text-slate-700 lg:gap-12">
-          <ul className="flex flex-wrap gap-6 text-sm font-semibold text-slate-700 lg:gap-12">
+        <nav aria-label="Primary navigation" className="order-last md:order-0">
+          <ul className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
             <li>
               <Link href="/" className={navLinkClass("/")}>
                 Home
@@ -88,39 +98,46 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-        </ul>
-      </nav>
+        </nav>
 
-      {data?.user ? (
-        <div className="flex items-center gap-3 self-start lg:self-auto">
-          <Avatar user={data.user} />
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-slate-900">
-              {data.user.name || "Patient Account"}
-            </p>
-            <p className="truncate text-xs text-slate-500">{data.user.email}</p>
-          </div>
-          <Button
-            onClick={handleLogOut}
-            className="rounded-full bg-blue-950 text-white transition-all hover:-translate-y-0.5 hover:bg-blue-900"
-          >
-            Log Out
-          </Button>
-        </div>
-      ) : (
-        <div className="space-x-2 self-start lg:self-auto">
-          <Link href="/login">
-            <Button className="bg-blue-950 text-white transition-all hover:-translate-y-0.5 hover:bg-blue-900">
-              Log In
+        <div className="flex flex-col gap-3 md:flex-row md:items-center">
+          {data?.user ? (
+            <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 shadow-sm">
+              <Avatar user={data.user} />
+              <div className="min-w-0 text-left">
+                <p className="truncate text-sm font-semibold text-slate-900">
+                  {data.user.name || "Patient Account"}
+                </p>
+                <p className="truncate text-xs text-slate-500">
+                  {data.user.email}
+                </p>
+              </div>
+            </div>
+          ) : null}
+
+          {data?.user ? (
+            <Button
+              onClick={handleLogOut}
+              className="rounded-full bg-blue-950 px-5 py-2 text-sm text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+            >
+              Log Out
             </Button>
-          </Link>
-          <Link href="/register">
-            <Button className="bg-blue-950 text-white transition-all hover:-translate-y-0.5 hover:bg-blue-900">
-              Register
-            </Button>
-          </Link>
+          ) : (
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <Link href="/login">
+                <Button className="rounded-full bg-blue-950 px-5 py-2 text-sm text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300">
+                  Log In
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button className="rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300">
+                  Register
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </header>
   );
 }

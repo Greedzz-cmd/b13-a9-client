@@ -216,11 +216,17 @@ export default function BookingForm({ doctor, user }) {
             }
             className="h-14 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-blue-950"
           >
-            {appointmentTimes.map((time) => (
-              <option key={time} value={time}>
-                {time}
+            {appointmentTimes.length ? (
+              appointmentTimes.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))
+            ) : (
+              <option value="" disabled>
+                No available times
               </option>
-            ))}
+            )}
           </select>
         </Field>
       </div>
@@ -236,11 +242,12 @@ export default function BookingForm({ doctor, user }) {
         />
       </Field>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button
           type="submit"
           isLoading={isSubmitting}
-          className="rounded-full bg-blue-950 px-8 text-sm font-semibold text-white hover:bg-blue-900 transition-all hover:-translate-y-0.5"
+          disabled={!appointmentTimes.length}
+          className="w-full rounded-full bg-blue-950 px-8 py-3 text-sm font-semibold text-white hover:bg-blue-900 transition-all hover:-translate-y-0.5 sm:w-auto"
         >
           Save Appointment
         </Button>
@@ -248,7 +255,7 @@ export default function BookingForm({ doctor, user }) {
           as={Link}
           href={doctorDetailsHref}
           variant="bordered"
-          className="rounded-full border-slate-300 px-8 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5"
+          className="w-full rounded-full border-slate-300 px-8 py-3 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5 sm:w-auto"
         >
           Back to Details
         </Button>

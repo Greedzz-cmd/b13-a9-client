@@ -47,8 +47,8 @@ export default async function BookAppointmentPage({ params }) {
   }
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_20%,#ffffff_100%)] px-4 py-12">
-      <div className="mx-auto max-w-5xl">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_20%,#ffffff_100%)] px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
         <Link
           href={`/doctors/${doctorId}`}
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-950 transition hover:text-blue-700"
@@ -57,7 +57,7 @@ export default async function BookAppointmentPage({ params }) {
           Back to doctor details
         </Link>
 
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <aside className="rounded-[2rem] border border-white/70 bg-slate-950 p-8 text-white shadow-[0_25px_80px_-40px_rgba(15,23,42,0.65)]">
             <Chip className="bg-blue-100 text-xs font-semibold uppercase tracking-[0.2em] text-blue-950">
               Booking Page
@@ -93,14 +93,20 @@ export default async function BookAppointmentPage({ params }) {
                   Available Blocks
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {availability.map((slot) => (
-                    <span
-                      key={slot}
-                      className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100"
-                    >
-                      {slot}
-                    </span>
-                  ))}
+                  {availability.length ? (
+                    availability.map((slot) => (
+                      <span
+                        key={slot}
+                        className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100"
+                      >
+                        {slot}
+                      </span>
+                    ))
+                  ) : (
+                    <p className="text-sm text-slate-300">
+                      No time blocks are currently available for this doctor.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

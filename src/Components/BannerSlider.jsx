@@ -32,14 +32,13 @@ export default function BannerSlider({ slides, stats }) {
     >
       {slides.map((slide, idx) => (
         <SwiperSlide key={idx}>
-          <div className="flex items-stretch min-h-[calc(100vh-80px)] w-full relative z-10">
-            {/* ── LEFT: Text ── */}
-            <div className="flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-14 pb-14 w-full md:w-[45%] lg:w-[40%]">
-              <span className="inline-block text-xs font-semibold text-blue-950 bg-blue-100 px-4 py-1.5 rounded-full tracking-widest uppercase mb-6 w-fit">
+          <div className="relative flex min-h-[calc(100vh-80px)] w-full flex-col justify-center overflow-hidden lg:flex-row">
+            <div className="relative z-10 flex flex-1 flex-col justify-center px-6 py-14 sm:px-10 lg:px-16">
+              <span className="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-blue-950 bg-white/90 px-4 py-1.5 rounded-full shadow-sm mb-5 w-fit backdrop-blur-sm">
                 {slide.tag}
               </span>
 
-              <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.08] tracking-tight text-gray-900 mb-6">
+              <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-[3.6rem] lg:leading-[1.02] mb-6 max-w-2xl">
                 {slide.heading.map((line, i) => {
                   if (
                     line === slide.highlight ||
@@ -62,119 +61,106 @@ export default function BannerSlider({ slides, stats }) {
                 })}
               </h1>
 
-              <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-10">
+              <p className="max-w-xl text-sm leading-7 text-slate-600 sm:text-base mb-10">
                 Take the first step toward better health with personalized,
-                expert-led care.
+                expert-led care and instant booking.
               </p>
 
-              <Link href="/all-appointments">
-                <Button className=" bg-blue-950 text-white hover:bg-blue-900 transition-all hover:-translate-y-0.5">
-                  Book Appointment
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    aria-hidden
-                  >
-                    <path
-                      d="M3 8h10M9 4l4 4-4 4"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Button>
-              </Link>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Link href="/all-appointments">
+                  <Button className="inline-flex items-center justify-center rounded-full bg-blue-950 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-900">
+                    Book Appointment
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      className="ml-2"
+                      aria-hidden
+                    >
+                      <path
+                        d="M3 8h10M9 4l4 4-4 4"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Button>
+                </Link>
+                <div className="rounded-full border border-slate-200 bg-white/90 px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm">
+                  Start browsing verified specialists now.
+                </div>
+              </div>
 
-              {/* Swiper pagination dots */}
-              <div className="hero-pagination flex gap-2" />
+              <div className="hero-pagination mt-10 flex gap-2" />
             </div>
 
-            {/* Doctor image */}
-            <div className="hidden md:flex relative items-end justify-center w-[38%] lg:w-[34%]">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[360px] h-[420px] rounded-t-full bg-blue-50 border border-blue-100" />
-              <div className="relative z-10">
+            <div className="relative order-first w-full lg:order-last lg:w-[42%]">
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" />
+              <div className="relative mx-auto mt-8 h-[420px] max-w-[360px] rounded-[2rem] border border-slate-200 bg-white shadow-[0_25px_80px_-40px_rgba(15,23,42,0.35)] overflow-hidden lg:mt-0">
                 <Image
                   src={slide.image}
                   alt={slide.author}
-                  width={280}
-                  height={420}
-                  className="object-cover object-top rounded-t-full"
-                  style={{ height: "420px", width: "280px" }}
+                  fill
+                  className="object-cover"
                   unoptimized
                   priority={idx === 0}
                 />
               </div>
-              {/* Scroll hint */}
-              <div
-                className="absolute bottom-6 right-4 w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center"
-                aria-hidden
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path
-                    d="M7 2v10M3 8l4 4 4-4"
-                    stroke="#9CA3AF"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+
+              <div className="absolute left-1/2 top-[calc(100%_-_1.5rem)] -translate-x-1/2 w-[min(22rem,90%)] rounded-3xl bg-white/95 border border-slate-200 p-6 shadow-xl shadow-slate-200/50 backdrop-blur-sm lg:left-auto lg:right-10 lg:top-auto lg:bottom-10 lg:translate-x-0 lg:w-[18rem]">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">
+                  Featured Doctor
+                </p>
+                <p className="text-base font-semibold text-slate-900 mb-1">
+                  {slide.author}
+                </p>
+                <p className="text-sm text-slate-600">
+                  {slide.tag} with patient-first care and proven results.
+                </p>
               </div>
             </div>
 
-            {/*  Quote + Stats  */}
-            <div className="hidden lg:flex flex-col justify-center px-10 xl:px-16 w-[26%]">
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-100 p-7">
-                <svg
-                  width="28"
-                  height="22"
-                  viewBox="0 0 28 22"
-                  fill="none"
-                  className="mb-4"
-                  aria-hidden
-                >
-                  <path
-                    d="M0 22V13.2C0 5.87 4.2 1.47 12.6 0l1.4 2.2C9.8 3.13 7.47 5.4 6.72 9H12V22H0Zm16 0V13.2C16 5.87 20.2 1.47 28.6 0L30 2.2C25.8 3.13 23.47 5.4 22.72 9H28V22H16Z"
-                    fill="#172554"
-                    fillOpacity="0.15"
-                  />
-                </svg>
-                <p className="text-gray-600 text-sm leading-relaxed italic mb-5">
-                  &ldquo;{slide.quote}&rdquo;
+            <div className="hidden lg:flex w-[26%] flex-col justify-center gap-4 px-6">
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+                <p className="text-xs tracking-[0.3em] uppercase text-slate-400 mb-4">
+                  What patients say
                 </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <Image
-                    src={slide.image}
-                    alt={slide.author}
-                    width={36}
-                    height={36}
-                    className="rounded-full object-cover"
-                    unoptimized
-                  />
+                <p className="text-sm leading-7 text-slate-600 italic">
+                  “{slide.quote}”
+                </p>
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="h-10 w-10 overflow-hidden rounded-full bg-slate-100">
+                    <Image
+                      src={slide.image}
+                      alt={slide.author}
+                      width={40}
+                      height={40}
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
                   <div>
-                    <p className="text-xs font-bold text-gray-800">
+                    <p className="text-sm font-semibold text-slate-900">
                       {slide.author}
                     </p>
-                    <p className="text-xs text-blue-950 font-medium">
+                    <p className="text-xs uppercase tracking-[0.24em] text-blue-700">
                       {slide.tag}
                     </p>
                   </div>
                 </div>
               </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-3 mt-5">
+              <div className="grid grid-cols-2 gap-3">
                 {stats.map((s) => (
                   <div
                     key={s.label}
-                    className="bg-blue-950 rounded-xl p-4 text-center"
+                    className="rounded-3xl bg-blue-950 p-4 text-center text-white shadow-sm"
                   >
-                    <p className="text-white text-xl font-extrabold">
-                      {s.value}
+                    <p className="text-lg font-extrabold">{s.value}</p>
+                    <p className="text-[11px] uppercase tracking-[0.25em] text-blue-200">
+                      {s.label}
                     </p>
-                    <p className="text-blue-300 text-xs mt-0.5">{s.label}</p>
                   </div>
                 ))}
               </div>

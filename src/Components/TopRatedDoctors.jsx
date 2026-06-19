@@ -12,7 +12,7 @@ export default async function TopRatedDoctors() {
     .slice(0, 3);
 
   return (
-    <section className="bg-white px-4 py-20">
+    <section className="bg-slate-50 px-4 py-20">
       <div className="mx-auto max-w-6xl">
         <div className="mb-14 text-center">
           <span className="mb-4 inline-block rounded-full bg-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-950">
@@ -36,7 +36,7 @@ export default async function TopRatedDoctors() {
         <div className="mt-12 text-center">
           <Link
             href="/all-appointments"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-blue-950 px-8 py-3 font-semibold text-blue-950 transition-all duration-200 hover:bg-blue-950 hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-blue-950 bg-blue-950 px-8 py-3 font-semibold text-white transition-all duration-200 hover:bg-blue-900"
           >
             View All Doctors
             <svg

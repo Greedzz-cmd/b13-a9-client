@@ -135,7 +135,7 @@ export default function DashboardProfile({ initialUser }) {
           </Button>
         </div>
 
-        <div className="mt-8 grid gap-4">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <ProfileField label="Name" value={user?.name} />
           <ProfileField label="Email Address" value={user?.email} />
           <ProfileField label="Photo URL" value={user?.image} />

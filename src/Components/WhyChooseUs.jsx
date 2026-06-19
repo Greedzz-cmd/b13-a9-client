@@ -145,7 +145,7 @@ const stats = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 px-4 bg-gray-50">
+    <section className="py-20 px-4 bg-slate-50">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">

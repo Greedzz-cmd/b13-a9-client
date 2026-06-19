@@ -155,7 +155,7 @@ export default function DashboardAppointments({ initialAppointments }) {
 
   return (
     <>
-      <div className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-3xl border border-blue-100 bg-blue-50 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
             Total Bookings
@@ -236,7 +236,7 @@ export default function DashboardAppointments({ initialAppointments }) {
                   </div>
                 </Card.Header>
 
-                <Card.Content className="grid gap-4 px-6 py-6">
+                <Card.Content className="grid gap-4 md:grid-cols-2 px-6 py-6">
                   <Detail label="User Email" value={appointment.userEmail} />
                   <Detail
                     label="Phone"

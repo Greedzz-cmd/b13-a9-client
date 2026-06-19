@@ -23,10 +23,10 @@ export default async function AllAppointmentsPage({ searchParams }) {
     .size;
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-12">
-      <section className="mx-auto max-w-6xl">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#eff6ff_0%,#f8fafc_24%,#ffffff_100%)] px-4 py-12 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl">
         <div className="rounded-[2rem] border border-white/70 bg-white/95 px-6 py-8 shadow-[0_25px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur md:px-10 md:py-12">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <div className="max-w-2xl">
               <span className="inline-flex rounded-full bg-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-blue-950">
                 All Appointments
@@ -67,8 +67,8 @@ export default async function AllAppointmentsPage({ searchParams }) {
               type="search"
               name="search"
               defaultValue={searchTerm}
-              placeholder="Search by doctor name"
-              className="h-14 flex-1 rounded-full border border-slate-200 bg-white px-5 text-sm text-slate-800 outline-none transition focus:border-blue-950"
+              placeholder="Search doctors by name, specialty, or hospital"
+              className="h-14 flex-1 rounded-full border border-slate-200 bg-slate-50 px-5 text-sm text-slate-800 outline-none transition focus:border-blue-950 focus:bg-white"
             />
             <button
               type="submit"
