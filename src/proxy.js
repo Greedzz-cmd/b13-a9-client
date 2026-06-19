@@ -4,11 +4,22 @@ import { headers } from "next/headers";
 
 // This function can be marked `async` if using `await` inside
 export async function proxy(request) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
 
-  if (!session) {
+    if (!session?.user) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set(
+        "redirect",
+        `${request.nextUrl.pathname}${request.nextUrl.search}`,
+      );
+      loginUrl.searchParams.set("auth", "required");
+
+      return NextResponse.redirect(loginUrl);
+    }
+  } catch (error) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set(
       "redirect",
@@ -21,5 +32,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/doctors/:path", "/doctors/:path/book"],
+  matcher: ["/dashboard", "/doctors/:path/book"],
 };
